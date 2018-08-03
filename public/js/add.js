@@ -1,5 +1,6 @@
 // The code in add.js handles what happens when the user clicks the "Add a book" button.
 //handle authentication
+
 var config = {
   apiKey: "AIzaSyBdKKNfe0cwgREyNhcvn7rxBG2-SxvRGh4",
   authDomain: "updawg-e1145.firebaseapp.com",
@@ -24,6 +25,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
   } else {
+    $("body").css("display","block");
     // User is signed out.
   }
 });
