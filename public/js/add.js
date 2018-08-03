@@ -37,12 +37,12 @@ $("#add-btn").on("click", function(event) {
   };
 
   // Send an AJAX POST-request with jQuery
-  $.post("/api/userProfiles", newAdopter)
-    // On success, run the following code
-    .then(function(data) {
-      // Log the data we found
-      console.log(data);
-    });
+  $.post("/api/userProfiles", newAdopter,function(data){
+    console.log(data);
+    window.location.replace("http://localhost:8080/userProfile");
+
+  })
+  
 
   // Empty each input box by replacing the value with an empty string
   $("#firstName").val("");

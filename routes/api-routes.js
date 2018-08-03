@@ -1,5 +1,5 @@
 const db = require('../models');
-
+const path = require('path');
 module.exports=function(app){
 
     //create profile
@@ -14,17 +14,26 @@ module.exports=function(app){
             uid:req.body.uid,
             interested:false
         })
+        //need to send status for callback on ajax post.
+        res.sendStatus(200);
     });
 
-    //get own profile
+    //get profile data for different uids
     app.get('/api/profiles/:uid',function(req,res){
         db.Adopter.findAll({
             where:{
                 uid:req.params.uid
             }
         }).then(function(data){
-            res.send(data);
+            
+            //send user data to html and js file [data]
+            res.json(data);
+            
         })
+    });
+
+    app.get('/userProfile',function(req,res){
+        res.sendFile(path.join(__dirname,"../public/userProfile.html"));
     })
 
 };
