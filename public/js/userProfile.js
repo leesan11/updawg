@@ -23,6 +23,11 @@ var config = {
 function displayUserData(uid){
     $.get('/api/profiles/'+uid,function(data){
         //insert into display things
-        console.log(data);
+        //data returns an array
+        $(".userPic").attr("src",data[0].picture);
+        $(".userName").html(data[0].firstName +" "+ data[0].lastName)
+        $(".bio").html(data[0].bio);
+        $(".conditions").html(data[0].conditions);
+        
     })
 }

@@ -15,6 +15,14 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
     uid = user.uid;
+    $.get("/api/profiles/"+uid,function(data){
+      console.log(data);
+      if(data.length>0){
+        window.location.replace("http://localhost:8080/userProfile");
+      }
+    })
+
+
   } else {
     // User is signed out.
   }
