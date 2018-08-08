@@ -39,26 +39,31 @@
             </div>
         </div>
     </div>
-    <div class="likes-display">
-        <h3>Below are the people who are interested! </h3>
+
+
+    <div class="my-likes-display">
+
+
 
 
     </div>
-    <!--Modal-->
-    <div id="likedUser" class="modal">
-            <div class="modal-content liked-user-display">
 
-            </div>
-      
-    </div>
 	<script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
-    <script src="js/userProfile.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $.get("/api/profiles/interested",function(data){
+                $(".my-likes-display").innerHTML=data;
+                console.log(data);
+            })
+        })
+    
+    
+    </script>
 </body>
 
 </html>

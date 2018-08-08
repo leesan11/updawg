@@ -16,18 +16,26 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
     uid = user.uid;
+    console.log(user.displayName);
+    if(user.displayName=="Member"){
     $.get("/api/profiles/"+uid,function(data){
       console.log(data);
       if(data.length>0){
         window.location.replace("http://localhost:8080/userProfile");
       }
     })
+    
 
-
-  } else {
-    $("body").css("display","block");
+  }else {
+    user.updateProfile({
+      displayName: "Member"
+    })
+    console.log(user.displayName);
+    console.log('changing to block');
+    $("body").css("display","block"); 
     // User is signed out.
   }
+}
 });
 
 
@@ -43,6 +51,7 @@ $("#add-btn").on("click", function(event) {
     picture: $("#petPicture").val().trim(),
     conditions: $("#livingCondition").val().trim(),
     uid:uid,
+    interested:true,
     profile: $("select").val(),
   };
 

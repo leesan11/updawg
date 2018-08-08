@@ -12,7 +12,7 @@ module.exports=function(app){
             conditions:req.body.conditions,
             profile:req.body.profile,
             uid:req.body.uid,
-            interested:false
+            interested:req.body.interested
         })
         //need to send status for callback on ajax post.
         res.sendStatus(200);
@@ -31,6 +31,21 @@ module.exports=function(app){
             
         })
     });
+    //get all users that like my page
+    app.get('/api/interested',function(req,res){
+        db.Adopter.findAll({
+            where:{
+                interested:true
+            }
+        }).then(function(data){
+            
+            //send user data to html and js file [data]
+            res.json(data);
+            console.log(data);
+            
+        })
+    });
+
 
     app.get('/userProfile',function(req,res){
         res.sendFile(path.join(__dirname,"../public/userProfile.html"));

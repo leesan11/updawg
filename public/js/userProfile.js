@@ -1,3 +1,8 @@
+$(document).ready(function(){
+  $('.modal').modal();
+})
+
+
 //handle authentication
 var config = {
     apiKey: "AIzaSyBdKKNfe0cwgREyNhcvn7rxBG2-SxvRGh4",
@@ -13,10 +18,38 @@ var config = {
     if (user) {
       // User is signed in.
         displayUserData(user.uid);
-      
-    } else {
-      // User is signed out.
-    }
+        var globalData;
+        $.get("/api/interested",function(data){
+          globalData =data;
+          for(var i = 0; i < data.length; i++){
+            var contain = $("<div class='row'></div>");
+
+            var card = $("<div class='card col s6 likes'></div>");
+            $("<h3>"+data[i].firstName+" "+data[i].lastName +"</h3>").appendTo(card);
+            $("<img src ='"+data[i].picture+"'>").appendTo(card);
+            card.appendTo(contain);
+            contain.appendTo(".likes-display");
+            card.attr("data",data[i].uid);
+            contain.on("click",".likes",function(){
+              $('.modal').modal('open');
+              $.get('/api/profiles/'+$(this).attr("data"),function(dataS){
+                var display=$(".liked-user-display");
+                display.empty();
+                $("<h3>"+dataS[0].firstName+" "+dataS[0].lastName +"</h3>").appendTo(display);
+                $("<img src ='"+dataS[0].picture+"'>").appendTo(display);
+                $("<p>"+dataS[0].bio+"</p>").appendTo(display);
+                $("<p>"+dataS[0].conditions+"</p>").appendTo(display);
+              });
+
+              
+
+             
+            })
+
+          
+          }
+      })
+    } 
   });
 
 
